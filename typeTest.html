@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>typeTest</title>
+    <script>
+        var string = 'Hello World!';
+        console.log(btoa(string)); // "SGVsbG8gV29ybGQh"
+        console.log(atob('SGVsbG8gV29ybGQh')); // "Hello World!"
+        // console.log(btoa('你好'));     // 报错
+        var base64 = btoa(encodeURIComponent('你好'));
+        console.log(base64);
+        console.log(decodeURIComponent(atob((base64))));
+    </script>
+</head>
+<body>
+
+</body>
+</html>
