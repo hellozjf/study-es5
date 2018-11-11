@@ -252,3 +252,44 @@ if (0) {
     var temp = obj1.obj2.obj3;
     console.log(temp.p1 + temp.p2);
 }
+
+
+console.log(Object.prototype.toString.call(2)); // "[object Number]"
+console.log(Object.prototype.toString.call('')); // "[object String]"
+console.log(Object.prototype.toString.call(true)); // "[object Boolean]"
+console.log(Object.prototype.toString.call(undefined)); // "[object Undefined]"
+console.log(Object.prototype.toString.call(null)); // "[object Null]"
+console.log(Object.prototype.toString.call(Math)); // "[object Math]"
+console.log(Object.prototype.toString.call({})); // "[object Object]"
+console.log(Object.prototype.toString.call([])); // "[object Array]"
+
+console.log('在上面这个type函数的基础上，还可以加上专门判断某种类型数据的方法。');
+var type = function (o){
+    var s = Object.prototype.toString.call(o);
+    return s.match(/\[object (.*?)\]/)[1].toLowerCase();
+};
+
+['Null',
+    'Undefined',
+    'Object',
+    'Array',
+    'String',
+    'Number',
+    'Boolean',
+    'Function',
+    'RegExp'
+].forEach(function (t) {
+    type['is' + t] = function (o) {
+        return type(o) === t.toLowerCase();
+    };
+});
+
+console.log(type.isObject({})); // true
+console.log(type.isNumber(NaN)); // true
+console.log(type.isRegExp(/abc/)); // true
+
+
+console.log('举例来说，日期的实例对象的toString和toLocaleString返回值就不一样，而且toLocaleString的返回值跟用户设定的所在地域相关。');
+var date = new Date();
+console.log(date.toString()); // "Tue Jan 01 2018 12:01:33 GMT+0800 (CST)"
+console.log(date.toLocaleString()); // "1/01/2018, 12:01:33 PM"
